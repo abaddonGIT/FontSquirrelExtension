@@ -12,6 +12,8 @@
 
     var FontConverterStrategy = function () {};
 
-
+    FontConverterStrategy.prototype = {
+        init: function () {}
+    };
 
 }(window, document));
