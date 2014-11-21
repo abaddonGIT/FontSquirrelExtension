@@ -17,8 +17,9 @@
         "default_popup": "pages/popup.html"
     },
 
-    "permissions":[
+    "permissions": [
         "notifications",
+        "downloads",
         "http://www.fontsquirrel.com/*"
     ],
 
