@@ -1,12 +1,33 @@
 html {
   font: normal 500 10px Arial;
 }
+
 body {
   font-size: 1.2rem;
 }
+
 html, body {
   padding: 0;
   margin: 0;
   width: 100%;
   height: 100%;
+}
+
+#wrapper {
+  padding: 10px;
+
+  input[type=file] {
+    border: 1px solid #c9c9c9;
+    padding: 5px;
+  }
+
+  #preloder {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3) url(../img/loading.gif) 50% 50% no-repeat;
+  }
 }

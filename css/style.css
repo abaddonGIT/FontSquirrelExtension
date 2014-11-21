@@ -11,3 +11,19 @@ body {
   width: 100%;
   height: 100%;
 }
+#wrapper {
+  padding: 10px;
+}
+#wrapper input[type=file] {
+  border: 1px solid #c9c9c9;
+  padding: 5px;
+}
+#wrapper #preloder {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3) url(../img/loading.gif) 50% 50% no-repeat;
+}
