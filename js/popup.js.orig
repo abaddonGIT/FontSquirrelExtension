@@ -68,6 +68,10 @@
     var FontSquirrelStartegy = function () {
         this.target = d.querySelector("input[type=file]");
 
+<<<<<<< HEAD
+    FontConverterStrategy.prototype = {
+        init: function () {}
+=======
         this.config = {
             urls: {
                 'classifications': "http://www.fontsquirrel.com/api/classifications",
@@ -78,6 +82,7 @@
                 'insert': "http://www.fontsquirrel.com/tools/insert"
             }
         };
+
         this.init = function () {
             //Удаляем все обработчики
             this.removeEvents();
@@ -123,6 +128,7 @@
     w.onload = function () {
         var converter = new FontConverter(new FontSquirrelStartegy());
         converter.run();
+>>>>>>> e3263ddae9e3f8b50eb001e2fdfc02e2ade1a1b1
     };
 
 }(window, document));

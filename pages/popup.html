@@ -6,7 +6,16 @@
     <title></title>
 </head>
 <body>
-Приветик!!!
+<div id="wrapper">
+    <form action method="post">
+        <input type="hidden" name="folder" value="/tools/"/>
+        <input type="hidden" name="fileext" value="*.ttf;*.otf;*.pfb;*.hqx;*.bin;generator_config.txt;config.txt"/>
+        <input type="hidden" name="Upload" value="Submit Query"/>
+        <label for="font">Выберите шрифт:</label>
+        <input type="file" id="font" name="Filedata"/>
+    </form>
+    <div id="preloder"></div>
+</div>
 <footer>
     <script src="../js/popup.js"></script>
 </footer>
