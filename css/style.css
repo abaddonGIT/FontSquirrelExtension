@@ -33,6 +33,7 @@ body {
 #wrapper #finalBlock label {
   display: block;
   color: green;
+  font-size: 1.2rem;
 }
 #wrapper #finalBlock button {
   display: block;
