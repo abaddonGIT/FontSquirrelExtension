@@ -18,6 +18,12 @@ body {
   border: 1px solid #c9c9c9;
   padding: 5px;
 }
+#wrapper label {
+  display: block;
+  color: green;
+  font-weight: 700;
+  margin: 5px 0;
+}
 #wrapper #preloder {
   display: none;
   position: absolute;
@@ -30,11 +36,6 @@ body {
 #wrapper #finalBlock {
   display: none;
 }
-#wrapper #finalBlock label {
-  display: block;
-  color: green;
-  font-size: 1.2rem;
-}
 #wrapper #finalBlock button {
   display: block;
   background-color: green;
@@ -43,4 +44,8 @@ body {
   border: none;
   font-weight: 700;
   margin: 0 auto;
+}
+#wrapper #converto-block select {
+  width: 100%;
+  padding: 5px 0;
 }

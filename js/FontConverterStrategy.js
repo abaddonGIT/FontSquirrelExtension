@@ -1,9 +1,10 @@
 /**
  * Created by abaddon on 22.11.2014.
+ * description - base app object
  */
-var d = document, ch = chrome,
-    FontConverterStrategy = function () {
-    };
+/*global w, d, ch, console*/
+var FontConverterStrategy = function () {
+};
 
 FontConverterStrategy.prototype = {
     run: function () {
@@ -14,9 +15,9 @@ FontConverterStrategy.prototype = {
 
         this.init();
     },
-    removeEvents: function () {/*Удаляет обработчик события*/
-        this.target.removeEventListener("change");
-    },
+    /*
+     * Делает ajax запрос
+     */
     createXHR: function (formDatas, url, blob) {/*Создание объекта запроса*/
         return new Promise(function (resolve, reject) {
             var xhr = new XMLHttpRequest(),
@@ -45,6 +46,9 @@ FontConverterStrategy.prototype = {
             xhr.send(form);
         });
     },
+    /*
+     * Формирует объект для запроса
+     */
     collectionValue: function (form) {/*Соберает все данные из формы в виде объекта*/
         var inputs = form.querySelectorAll("input"), ln = inputs.length, data = [];
         while (ln--) {
@@ -63,9 +67,15 @@ FontConverterStrategy.prototype = {
 
         return data;
     },
+    /*
+     * Управляет состоянием прелодера
+     */
     loderState: function (state) {
         state ? this.preloder.style.display = "block" : this.preloder.style.display = "none";
     },
+    /*
+     * Показывае сообщения
+     */
     showNotification: function (message, name) {
         var config = {
             type: "basic",
@@ -85,6 +95,9 @@ FontConverterStrategy.prototype = {
             }
         });
     },
+    /*
+     * Очистка полей
+     */
     clearForm: function () {
         this.target.value = "";
         this.agreement.checked = false;

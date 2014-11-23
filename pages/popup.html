@@ -7,6 +7,14 @@
 </head>
 <body>
 <div id="wrapper">
+    <div id="converto-block">
+        <label for="convertor-select">Выберите конвертор</label>
+        <select name="convertor" id="convertor-select">
+            <option value="fontsquirrel">fontsquirrel</option>
+            <option value="everythingfonts">everythingfonts</option>
+        </select>
+    </div>
+
     <form id="uplode" action method="post">
         <input type="hidden" name="folder" value="/tools/"/>
         <input type="hidden" name="fileext" value="*.ttf;*.otf;*.pfb;*.hqx;*.bin;generator_config.txt;config.txt"/>
@@ -16,7 +24,7 @@
     </form>
     <div id="finalBlock">
         <form id="generate" action method="post">
-            <label for="agreement">Да, шрифт, который я загружаю является свободно распостраняемым</label>
+            <label for="agreement">The EULAs of the font allow Web Embedding</label>
             <input id="agreement" type="checkbox" name="agreement"/>
 
             <input type="hidden" name="dirname[]"/>
@@ -51,7 +59,8 @@
 </div>
 <footer>
     <script src="../js/FontConverterStrategy.js"></script>
-    <script src="../js/FontSquirrelStartegy.js"></script>
+    <script src="../js/FontSquirrelStrategy.js"></script>
+    <script src="../js/FontEverythingfontsStrategy.js"></script>
     <script src="../js/popup.js"></script>
 </footer>
 </body>

@@ -1,29 +1,31 @@
 /**
  * Created by abaddon on 22.11.2014.
  */
-var d = document, ch = chrome, w = window, FontSquirrelStartegy = function () {
+/*global document, window, chrome, console*/
+var d = document, ch = chrome, w = window, FontSquirrelStrategy = function () {
     var that = this;
-    this.config = {
-        urls: {
-            'uplode': "http://www.fontsquirrel.com/uploadify/fontfacegen_uploadify.php",
-            'insert': "http://www.fontsquirrel.com/tools/insert",
-            'generate': "http://www.fontsquirrel.com/tools/generate",
-            'progress': "http://www.fontsquirrel.com/tools/progress/",
-            'download': "http://www.fontsquirrel.com/tools/download"
-        }
+    this.urls = {
+        'uplode': "http://www.fontsquirrel.com/uploadify/fontfacegen_uploadify.php",
+        'insert': "http://www.fontsquirrel.com/tools/insert",
+        'generate': "http://www.fontsquirrel.com/tools/generate",
+        'progress': "http://www.fontsquirrel.com/tools/progress/",
+        'download': "http://www.fontsquirrel.com/tools/download"
     };
     this.init = function () {
         this.generate = d.querySelector("form#generate");
         this.download = this.generate.querySelector("button");
-        //Удаляем все обработчики
-        this.removeEvents();
         //добавляем обработчик
-        this.addEvent();
+        this.addEvents();
     };
 
-    this.addEvent = function () {
-        this.target.addEventListener("change", this.fileSelect.bind(this));
-        this.download.addEventListener("click", this.convertFont.bind(this));
+    this.addEvents = function () {
+        this.target.addEventListener("change", this.fileSelect, false);
+        this.download.addEventListener("click", this.convertFont, false);
+    };
+
+    this.removeEvents = function () {
+        this.target.removeEventListener("change", this.fileSelect, false);
+        this.download.removeEventListener("click", this.convertFont, false);
     };
 
     this.finalStep = function (info) {
@@ -81,28 +83,28 @@ var d = document, ch = chrome, w = window, FontSquirrelStartegy = function () {
                     }
                 }
             };
-            xhr.open('POST', this.config.urls.progress + this.uplodeOpt.id, true);
+            xhr.open('POST', this.urls.progress + this.uplodeOpt.id, true);
             xhr.send();
         }.bind(this), 4000);
     };
 
     this.convertFont = function (e) {
-        this.loderState(true);
-        var datas = this.getConvertOptions();
+        that.loderState(true);
+        var datas = that.getConvertOptions();
         if (datas) {
-            this.createXHR(datas, this.config.urls.generate).then(function (response) {
-                this.getProgress(function () {
-                    that.createXHR(datas, that.config.urls.download, true).then(function (response) {
+            that.createXHR(datas, that.urls.generate).then(function (response) {
+                that.getProgress(function () {
+                    that.createXHR(datas, that.urls.download, true).then(function (response) {
                         that.loderState(false);
                         that.clearForm();
                         that.uplodeOpt = null;
                         ch.downloads.download({
                             url: w.URL.createObjectURL(response),
-                            filename: "font.zip"
+                            filename: "webfont.zip"
                         });
                     });
                 });
-            }.bind(this), function (error) {
+            }, function (error) {
                 that.showNotification(error, "error");
             })
         }
@@ -111,10 +113,10 @@ var d = document, ch = chrome, w = window, FontSquirrelStartegy = function () {
 
     this.fileSelect = function () {
         var form = d.querySelector("form#uplode"),
-            datas = this.collectionValue(form);
+            datas = that.collectionValue(form);
 
-        this.loderState(true);
-        this.createXHR(datas, this.config.urls.uplode).then(function (response) {
+        that.loderState(true);
+        that.createXHR(datas, that.urls.uplode).then(function (response) {
             return [
                 {
                     'name': 'original_filename',
@@ -128,19 +130,19 @@ var d = document, ch = chrome, w = window, FontSquirrelStartegy = function () {
         }, function (error) {
             that.showNotification(error, "error");
         }).then(function (response) {
-            return this.createXHR(response, this.config.urls.insert);
-        }.bind(this), function (error) {
+            return that.createXHR(response, that.urls.insert);
+        }, function (error) {
             that.showNotification(error, "error");
         }).then(function (response) {
             var res = JSON.parse(response);
             if (res.message) {//Если конвертация невозможна
                 that.showNotification(res.message, "error");
             } else {//Если все нормально
-                this.loderState(false);
-                this.finalStep(res);
+                that.loderState(false);
+                that.finalStep(res);
             }
-        }.bind(this));
+        });
     };
 };
 
-FontSquirrelStartegy.prototype = Object.create(FontConverterStrategy.prototype);
+FontSquirrelStrategy.prototype = Object.create(FontConverterStrategy.prototype);

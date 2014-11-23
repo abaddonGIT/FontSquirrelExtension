@@ -2,9 +2,9 @@
  * Created by abaddon on 20.11.2014.
  */
 /*
- global window, document, chrome
+ global w, d, ch
  */
-(function (w, d, ch, FontConverterStrategy, FontSquirrelStartegy) {
+(function (FontConverterStrategy, FontSquirrelStrategy, FontEverythingfontsStrategy) {
     "use strict";
     var FontConverter = function (strategy) {
         this.strategy = strategy;
@@ -15,8 +15,31 @@
     };
 
     w.onload = function () {
-        var converter = new FontConverter(new FontSquirrelStartegy());
-        converter.run();
+        var converter = d.querySelector("#convertor-select");
+        //По дефолту
+        var fontsquirrel = new FontConverter(new FontSquirrelStrategy()), everythingfonts = null;
+        fontsquirrel.run();
+
+        converter.addEventListener("change", function () {
+            var val = this.value;
+            switch (val) {
+                case "fontsquirrel":
+                    fontsquirrel.strategy.addEvents();
+                    if (everythingfonts) {
+                        everythingfonts.strategy.removeEvents();
+                    }
+                    break;
+                case "everythingfonts":
+                    fontsquirrel.strategy.removeEvents();
+                    if (!everythingfonts) {
+                        everythingfonts = new FontConverter(new FontEverythingfontsStrategy());
+                        everythingfonts.run();
+                    } else {
+                        everythingfonts.strategy.addEvents();
+                    }
+                    break;
+            }
+        }, false);
     };
 
-}(window, document, chrome, FontConverterStrategy, FontSquirrelStartegy));
+}(FontConverterStrategy, FontSquirrelStrategy, FontEverythingfontsStrategy));

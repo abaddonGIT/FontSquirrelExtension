@@ -20,7 +20,8 @@
     "permissions": [
         "notifications",
         "downloads",
-        "http://www.fontsquirrel.com/*"
+        "http://www.fontsquirrel.com/*",
+        "http://everythingfonts.com/*"
     ],
 
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
