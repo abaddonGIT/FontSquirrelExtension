@@ -9,7 +9,6 @@
 .idea/workspace.xml
 css/style.less
 FontSquirrelExtension.zip
-final/
 node_modules/grunt-contrib-concat/LICENSE-MIT
 node_modules/grunt-contrib-concat/node_modules/chalk/index.js
 node_modules/grunt-contrib-concat/node_modules/chalk/node_modules/.bin/has-ansi
