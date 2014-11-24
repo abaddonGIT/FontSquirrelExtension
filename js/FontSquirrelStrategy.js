@@ -129,18 +129,20 @@ var d = document, ch = chrome, w = window, FontSquirrelStrategy = function () {
             ];
         }, function (error) {
             that.showNotification(error, "error");
+            that.loderState(false);
         }).then(function (response) {
             return that.createXHR(response, that.urls.insert);
         }, function (error) {
             that.showNotification(error, "error");
+            that.loderState(false);
         }).then(function (response) {
             var res = JSON.parse(response);
             if (res.message) {//Если конвертация невозможна
                 that.showNotification(res.message, "error");
             } else {//Если все нормально
-                that.loderState(false);
                 that.finalStep(res);
             }
+            that.loderState(false);
         });
     };
 };

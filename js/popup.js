@@ -24,12 +24,14 @@
             var val = this.value;
             switch (val) {
                 case "fontsquirrel":
+                    fontsquirrel.strategy.clearForm();
                     fontsquirrel.strategy.addEvents();
                     if (everythingfonts) {
                         everythingfonts.strategy.removeEvents();
                     }
                     break;
                 case "everythingfonts":
+                    fontsquirrel.strategy.clearForm();
                     fontsquirrel.strategy.removeEvents();
                     if (!everythingfonts) {
                         everythingfonts = new FontConverter(new FontEverythingfontsStrategy());
