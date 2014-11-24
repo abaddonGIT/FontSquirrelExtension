@@ -12,8 +12,24 @@ FontConverterStrategy.prototype = {
         this.preloder = d.querySelector("#preloder");//прелодер
         this.finalBlock = d.querySelector("#finalBlock");
         this.agreement = this.finalBlock.querySelector("#agreement");
+        this.generate = d.querySelector("form#generate");
+        this.download = this.generate.querySelector("button");
 
         this.init();
+    },
+    /*
+     * Регистрирует события для конвертации фрифта
+     */
+    addEvents: function () {
+        this.download.addEventListener("click", this.convertFont, false);
+        this.finalBlock.style.display = "block";
+    },
+    /*
+     * Убирает обработчик с кнопки
+     */
+    removeEvents: function () {
+        this.download.removeEventListener("click", this.convertFont, false);
+        this.finalBlock.style.display = "none";
     },
     /*
      * Делает ajax запрос

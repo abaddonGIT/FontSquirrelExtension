@@ -3,26 +3,13 @@
  */
 /*global w, d, ch, console*/
 var FontEverythingfontsStrategy = function () {
+    "use strict";
     var that = this;
     this.init = function () {
-        this.generate = d.querySelector("form#generate");
-        this.download = this.generate.querySelector("button");
-
         this.urls = {
             "generate": "http://everythingfonts.com/font-face"
         };
-
         this.addEvents();
-    };
-
-    this.addEvents = function () {
-        this.download.addEventListener("click", this.convertFont, false);
-        this.finalBlock.style.display = "block";
-    };
-
-    this.removeEvents = function () {
-        this.download.removeEventListener("click", this.convertFont, false);
-        this.finalBlock.style.display = "none";
     };
 
     this.convertFont = function (e) {

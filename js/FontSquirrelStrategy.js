@@ -3,6 +3,7 @@
  */
 /*global document, window, chrome, console*/
 var d = document, ch = chrome, w = window, FontSquirrelStrategy = function () {
+    "use strict";
     var that = this;
     this.urls = {
         'uplode': "http://www.fontsquirrel.com/uploadify/fontfacegen_uploadify.php",
@@ -12,8 +13,6 @@ var d = document, ch = chrome, w = window, FontSquirrelStrategy = function () {
         'download': "http://www.fontsquirrel.com/tools/download"
     };
     this.init = function () {
-        this.generate = d.querySelector("form#generate");
-        this.download = this.generate.querySelector("button");
         //добавляем обработчик
         this.addEvents();
     };
