@@ -53,18 +53,26 @@ FontConverterStrategy.prototype = {
         var inputs = form.querySelectorAll("input"), ln = inputs.length, data = [];
         while (ln--) {
             var loc = inputs[ln];
-            data.push({
-                name: loc.getAttribute("name"),
-                value: loc.files ? loc.files[0] : loc.value
-            });
             if (loc.files) {
+                if (this.checkMimeType(loc.files[0])) {
+                    data.push({
+                        name: loc.getAttribute("name"),
+                        value: loc.files[0]
+                    });
+                    data.push({
+                        name: "Filename",
+                        value: loc.value.replace("C:\\fakepath\\", "")
+                    });
+                } else {
+                    return false;
+                }
+            } else {
                 data.push({
-                    name: "Filename",
-                    value: loc.value.replace("C:\\fakepath\\", "")
+                    name: loc.getAttribute("name"),
+                    value: loc.value
                 });
             }
         }
-
         return data;
     },
     /*
@@ -94,6 +102,22 @@ FontConverterStrategy.prototype = {
                 });
             }
         });
+    },
+    /*
+     * Проверка загружаемого файла на тип
+     */
+    checkMimeType: function (file) {
+        if (file) {
+            var name = file.name.split(".");
+            if (name[1].toLowerCase() === "ttf") {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        return false;
     },
     /*
      * Очистка полей

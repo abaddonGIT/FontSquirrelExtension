@@ -115,35 +115,39 @@ var d = document, ch = chrome, w = window, FontSquirrelStrategy = function () {
         var form = d.querySelector("form#uplode"),
             datas = that.collectionValue(form);
 
-        that.loderState(true);
-        that.createXHR(datas, that.urls.uplode).then(function (response) {
-            return [
-                {
-                    'name': 'original_filename',
-                    'value': datas[0].value
-                },
-                {
-                    'name': 'path_data',
-                    'value': response
+        if (datas) {
+            that.loderState(true);
+            that.createXHR(datas, that.urls.uplode).then(function (response) {
+                return [
+                    {
+                        'name': 'original_filename',
+                        'value': datas[0].value
+                    },
+                    {
+                        'name': 'path_data',
+                        'value': response
+                    }
+                ];
+            }, function (error) {
+                that.showNotification(error, "error");
+                that.loderState(false);
+            }).then(function (response) {
+                return that.createXHR(response, that.urls.insert);
+            }, function (error) {
+                that.showNotification(error, "error");
+                that.loderState(false);
+            }).then(function (response) {
+                var res = JSON.parse(response);
+                if (res.message) {//Если конвертация невозможна
+                    that.showNotification(res.message, "error");
+                } else {//Если все нормально
+                    that.finalStep(res);
                 }
-            ];
-        }, function (error) {
-            that.showNotification(error, "error");
-            that.loderState(false);
-        }).then(function (response) {
-            return that.createXHR(response, that.urls.insert);
-        }, function (error) {
-            that.showNotification(error, "error");
-            that.loderState(false);
-        }).then(function (response) {
-            var res = JSON.parse(response);
-            if (res.message) {//Если конвертация невозможна
-                that.showNotification(res.message, "error");
-            } else {//Если все нормально
-                that.finalStep(res);
-            }
-            that.loderState(false);
-        });
+                that.loderState(false);
+            });
+        } else {
+            that.showNotification("Данный шрифт не подлежит конвертации!", "error");
+        }
     };
 };
 

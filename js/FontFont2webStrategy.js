@@ -1,29 +1,29 @@
 /**
- * Created by abaddon on 23.11.2014.
+ * Created by abaddon on 24.11.2014.
  */
-/*global w, d, ch, console*/
-var FontEverythingfontsStrategy = function () {
+var FontFont2webStrategy = function () {
     var that = this;
+
+    this.urls = {
+        "generate": "http://www.font2web.com/convert.php"
+    };
+
     this.init = function () {
         this.generate = d.querySelector("form#generate");
         this.download = this.generate.querySelector("button");
-
-        this.urls = {
-            "generate": "http://everythingfonts.com/font-face"
-        };
-
+        //добавляем обработчик
         this.addEvents();
     };
 
     this.addEvents = function () {
         this.download.addEventListener("click", this.convertFont, false);
         this.finalBlock.style.display = "block";
-    };
+    }
 
     this.removeEvents = function () {
         this.download.removeEventListener("click", this.convertFont, false);
         this.finalBlock.style.display = "none";
-    };
+    }
 
     this.convertFont = function (e) {
         var file = that.target.files.length ? that.target.files[0] : null,
@@ -33,12 +33,24 @@ var FontEverythingfontsStrategy = function () {
             if (agreement) {
                 var datas = [
                     {
-                        "name": "ttffile",
-                        "value": file
+                        "name": "MAX_FILE_SIZE",
+                        "value": 999999
                     },
                     {
                         "name": "permission",
                         "value": agreement
+                    },
+                    {
+                        "name": "userfile",
+                        "value": file
+                    },
+                    {
+                        "name": "x",
+                        "value": 125
+                    },
+                    {
+                        "name": "y",
+                        "value": 41
                     }
                 ];
                 that.loderState(true);
@@ -65,4 +77,5 @@ var FontEverythingfontsStrategy = function () {
         }
     };
 };
-FontEverythingfontsStrategy.prototype = Object.create(FontConverterStrategy.prototype);
+
+FontFont2webStrategy.prototype = Object.create(FontConverterStrategy.prototype);
