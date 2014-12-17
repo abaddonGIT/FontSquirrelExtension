@@ -125,7 +125,7 @@ FontConverterStrategy.prototype = {
     checkMimeType: function (file) {
         if (file) {
             var name = file.name.split(".");
-            if (name[1].toLowerCase() === "ttf") {
+            if (name[1].toLowerCase() === "ttf" || name[1].toLowerCase() === "otf") {
                 return true;
             } else {
                 return false;
